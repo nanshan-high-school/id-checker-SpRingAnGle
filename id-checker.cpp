@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
 int englishCalculate(char);
-int numberCalculate(char);
+int numberCalculate(char,int);
 
 int main() {
   char idCard[10];
@@ -9,13 +9,11 @@ int main() {
   
   cout << "請輸入欲被檢查之身分證\n";
   cin >> idCard;
-  cout << idCard;
   
   total = englishCalculate(idCard[0]);
   for (int x = 1; x < 10; x++) {
-    total += numberCalculate(idCard[x]);
+    total += numberCalculate(idCard[x] - 48,x);
   }
-  
   if (total % 10 == 0) {
     cout << "正確!!";
   } else {
@@ -25,9 +23,9 @@ int main() {
   return 0;
 }
 
-int englishCalculate(char idCard[0]) {
+int englishCalculate(char idCard) {
   int x;
-  switch(idCard[0]) {
+  switch(idCard) {
     case 'A':
     case 'B':
     case 'C':
@@ -73,16 +71,16 @@ int englishCalculate(char idCard[0]) {
     default:
       cout << "錯誤!!";
   }
-  
-  return idCard[0] - x;
+
+  return (idCard - x) / 10 + ((idCard - x) % 10) * 9;
 }
 
-int numberCalculate(char idCard) {
+int numberCalculate(char idCard,int x) {
   int y;
-  if (x == 10) {
+  if (x == 9) {
     y = 1;
   } else {
-    y = 10 - x;
+    y = 9 - x;
   }
-  return idCard[x] * y;
+  return idCard * y;
 }
